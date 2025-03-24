@@ -1,0 +1,22 @@
+{
+  "id": "packing-guide-9517",
+  "name": "Packing Guide",
+  "description": "Recommends travel essentials based on destination and weather",
+  "inputSchema": {
+    "location": "string",
+    "season": "string",
+    "duration": "number"
+  },
+  "outputSchema": {
+    "clothing": "array",
+    "toiletries": "array",
+    "electronics": "array",
+    "documents": "array",
+    "misc": "array"
+  },
+  "configuration": {
+    "seasons": ["Spring", "Summer", "Fall", "Winter"],
+    "climateCategories": ["Tropical", "Desert", "Mediterranean", "Continental", "Polar"],
+    "tripTypes": ["Beach", "City", "Mountain", "Countryside"]
+  }
+}

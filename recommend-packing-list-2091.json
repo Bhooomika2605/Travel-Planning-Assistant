@@ -1,0 +1,41 @@
+{
+  "id": "recommend-packing-list-2091",
+  "name": "Recommend Packing List",
+  "description": "Creates a customized packing list based on destination and weather",
+  "inputs": ["location", "season", "duration", "weatherInfo"],
+  "steps": [
+    {
+      "type": "fetchData",
+      "source": "packingItems",
+      "filter": {
+        "climate": "$weatherInfo.climate",
+        "season": "$season"
+      },
+      "output": "basePackingItems"
+    },
+    {
+      "type": "processLogic",
+      "function": "customizePackingList",
+      "inputs": ["basePackingItems", "duration", "location", "weatherInfo"],
+      "output": "customizedPackingList"
+    },
+    {
+      "type": "categorizeItems",
+      "input": "customizedPackingList",
+      "categories": ["clothing", "toiletries", "electronics", "documents", "misc"],
+      "output": "categorizedPackingList"
+    }
+  ],
+  "outputSchema": {
+    "packingList": {
+      "location": "string",
+      "season": "string",
+      "duration": "number",
+      "clothing": "array",
+      "toiletries": "array",
+      "electronics": "array",
+      "documents": "array",
+      "misc": "array"
+    }
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "id": "create-itinerary-7467",
+  "name": "Create Itinerary",
+  "description": "Creates a personalized travel itinerary",
+  "inputs": ["location", "duration", "interests", "budget"],
+  "steps": [
+    {
+      "type": "fetchData",
+      "source": "destinations",
+      "filter": "location",
+      "output": "destinationInfo"
+    },
+    {
+      "type": "processLogic",
+      "function": "generateDailySchedule",
+      "inputs": ["destinationInfo", "duration", "interests", "budget"],
+      "output": "itinerary"
+    },
+    {
+      "type": "response",
+      "template": "itineraryTemplate",
+      "data": "itinerary"
+    }
+  ],
+  "outputSchema": {
+    "itinerary": {
+      "location": "string",
+      "duration": "number",
+      "days": "array"
+    }
+  }
+}

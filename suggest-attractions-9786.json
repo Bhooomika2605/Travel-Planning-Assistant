@@ -1,0 +1,44 @@
+{
+  "id": "suggest-attractions-9786",
+  "name": "Suggest Attractions",
+  "description": "Suggests and formats tourist attractions based on preferences",
+  "inputs": ["location", "category", "attractions"],
+  "steps": [
+    {
+      "type": "filterData",
+      "input": "attractions",
+      "filter": {
+        "category": "$category"
+      },
+      "output": "filteredAttractions"
+    },
+    {
+      "type": "sortData",
+      "input": "filteredAttractions",
+      "sortBy": "rating",
+      "order": "descending",
+      "output": "rankedAttractions"
+    },
+    {
+      "type": "enrichData",
+      "input": "rankedAttractions",
+      "dataSource": "attractionDetails",
+      "joinKey": "id",
+      "fieldsToAdd": ["description", "hours", "fee", "tips", "imageUrl"],
+      "output": "enrichedAttractions"
+    },
+    {
+      "type": "groupData",
+      "input": "enrichedAttractions",
+      "groupBy": "category",
+      "output": "groupedAttractions"
+    }
+  ],
+  "outputSchema": {
+    "attractionRecommendations": {
+      "location": "string",
+      "category": "string",
+      "attractions": "array"
+    }
+  }
+}

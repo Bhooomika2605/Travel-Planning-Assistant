@@ -1,0 +1,39 @@
+{
+  "name": "Travel Planning Assistant",
+  "description": "Helps users plan travel itineraries, suggests attractions, and recommends packing lists based on location and weather.",
+  "version": "1.0.0",
+  "type": "conversational",
+  "scope": "Travel planning and recommendations",
+  "subAgents": [
+    {
+      "name": "Itinerary Planner",
+      "role": "Creates personalized day-wise travel schedules based on trip duration and preferences",
+      "capabilities": [
+        "Generate daily itineraries",
+        "Suggest optimal route planning",
+        "Adjust schedules based on weather forecasts",
+        "Recommend transportation options"
+      ]
+    },
+    {
+      "name": "Tourist Attraction Finder",
+      "role": "Suggests popular and hidden gem attractions based on location",
+      "capabilities": [
+        "Recommend top-rated tourist spots",
+        "Suggest local experiences and hidden gems",
+        "Provide information about opening hours and entry fees",
+        "Recommend best times to visit attractions"
+      ]
+    },
+    {
+      "name": "Packing Guide",
+      "role": "Recommends travel essentials based on destination and weather",
+      "capabilities": [
+        "Create customized packing lists",
+        "Suggest weather-appropriate clothing",
+        "Recommend travel gadgets and accessories",
+        "Provide destination-specific packing tips"
+      ]
+    }
+  ]
+}

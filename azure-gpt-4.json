@@ -1,0 +1,19 @@
+{
+  "id": "azure-gpt-4",
+  "name": "Azure GPT-4",
+  "provider": "Microsoft Azure",
+  "modelType": "GPT-4",
+  "capabilities": [
+    "Travel planning",
+    "Destination knowledge",
+    "Attraction recommendations",
+    "Packing suggestions"
+  ],
+  "configuration": {
+    "endpoint": "https://api.azure.com/openai/gpt-4",
+    "apiVersion": "2023-05-15",
+    "maxTokens": 2048,
+    "temperature": 0.7,
+    "topP": 0.95
+  }
+}

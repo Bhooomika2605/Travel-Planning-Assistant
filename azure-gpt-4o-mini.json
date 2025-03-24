@@ -1,0 +1,18 @@
+{
+  "id": "azure-gpt-4o-mini",
+  "name": "Azure GPT-4o Mini",
+  "provider": "Microsoft Azure",
+  "modelType": "GPT-4o Mini",
+  "capabilities": [
+    "Quick responses",
+    "Basic travel information",
+    "Simple recommendations"
+  ],
+  "configuration": {
+    "endpoint": "https://api.azure.com/openai/gpt-4o-mini",
+    "apiVersion": "2023-12-01",
+    "maxTokens": 1024,
+    "temperature": 0.8,
+    "topP": 0.9
+  }
+}

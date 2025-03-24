@@ -1,0 +1,75 @@
+{
+  "id": "ma-packing-guide-9517-primary-workflow",
+  "name": "Packing Guide Primary Workflow",
+  "description": "Main workflow for the Packing Guide mini-agent",
+  "trigger": {
+    "type": "userRequest",
+    "patterns": [
+      "What should I pack for {location}?",
+      "Packing list for {location}",
+      "Help me pack for my trip to {location}"
+    ]
+  },
+  "parameters": [
+    {
+      "name": "location",
+      "type": "string",
+      "required": true,
+      "prompt": "Where are you traveling to?"
+    },
+    {
+      "name": "season",
+      "type": "string",
+      "required": false,
+      "prompt": "Which season will you be traveling in? (Spring, Summer, Fall, Winter)"
+    },
+    {
+      "name": "duration",
+      "type": "number",
+      "required": false,
+      "prompt": "How many days is your trip?",
+      "default": 7
+    }
+  ],
+  "steps": [
+    {
+      "id": "validateInput",
+      "type": "validation",
+      "parameters": ["location"]
+    },
+    {
+      "id": "getWeatherInfo",
+      "type": "apiCall",
+      "service": "weatherService",
+      "method": "getSeasonalWeather",
+      "parameters": {
+        "location": "$location",
+        "season": "$season"
+      },
+      "output": "weatherInfo"
+    },
+    {
+      "id": "generatePackingList",
+      "type": "callWorkflow",
+      "workflow": "recommend-packing-list-2091",
+      "parameters": {
+        "location": "$location",
+        "season": "$season",
+        "duration": "$duration",
+        "weatherInfo": "$weatherInfo"
+      },
+      "output": "packingListResult"
+    },
+    {
+      "id": "formatResponse",
+      "type": "transformation",
+      "input": "packingListResult",
+      "template": "packingListResponseTemplate",
+      "output": "formattedResponse"
+    }
+  ],
+  "output": {
+    "type": "response",
+    "content": "$formattedResponse"
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "id": "tourist-attraction-finder-7205",
+  "name": "Tourist Attraction Finder",
+  "description": "Suggests popular and hidden gem attractions",
+  "inputSchema": {
+    "location": "string",
+    "category": "string",
+    "count": "number"
+  },
+  "outputSchema": {
+    "attractions": "array"
+  },
+  "configuration": {
+    "categories": ["Historical", "Natural", "Cultural", "Entertainment", "Shopping", "Food"],
+    "defaultCount": 5,
+    "includeRatings": true,
+    "includeHours": true,
+    "includeFees": true
+  }
+}

@@ -1,0 +1,75 @@
+{
+  "id": "ma-tourist-attraction-finder-7205-primary-workflow",
+  "name": "Tourist Attraction Finder Primary Workflow",
+  "description": "Main workflow for the Tourist Attraction Finder mini-agent",
+  "trigger": {
+    "type": "userRequest",
+    "patterns": [
+      "What can I see in {location}?",
+      "Top attractions in {location}",
+      "Places to visit in {location}"
+    ]
+  },
+  "parameters": [
+    {
+      "name": "location",
+      "type": "string",
+      "required": true,
+      "prompt": "Which place are you interested in?"
+    },
+    {
+      "name": "category",
+      "type": "string",
+      "required": false,
+      "prompt": "What type of attractions are you looking for? (Historical, Natural, Cultural, Entertainment)",
+      "default": "all"
+    },
+    {
+      "name": "count",
+      "type": "number",
+      "required": false,
+      "default": 5
+    }
+  ],
+  "steps": [
+    {
+      "id": "validateInput",
+      "type": "validation",
+      "parameters": ["location"]
+    },
+    {
+      "id": "getAttractions",
+      "type": "apiCall",
+      "service": "attractionService",
+      "method": "findAttractions",
+      "parameters": {
+        "location": "$location",
+        "category": "$category",
+        "limit": "$count"
+      },
+      "output": "attractionsData"
+    },
+    {
+      "id": "suggestAttractions",
+      "type": "callWorkflow",
+      "workflow": "suggest-attractions-9786",
+      "parameters": {
+        "location": "$location",
+        "category": "$category",
+        "attractions": "$attractionsData"
+      },
+      "output": "attractionsResult"
+    },
+    {
+      "id": "formatResponse",
+      "type": "transformation",
+      "input": "attractionsResult",
+      "template": "attractionsResponseTemplate",
+      "output": "formattedResponse"
+    }
+  ],
+  "output": {
+    "type": "response",
+    "content": "$formattedResponse"
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "id": "itinerary-planner-4550",
+  "name": "Itinerary Planner",
+  "description": "Creates personalized day-wise travel schedules",
+  "inputSchema": {
+    "location": "string",
+    "duration": "number",
+    "interests": "array",
+    "budget": "string"
+  },
+  "outputSchema": {
+    "days": "array",
+    "recommendations": "array"
+  },
+  "configuration": {
+    "maxDaysPerTrip": 14,
+    "interestsCategories": ["Historical", "Nature", "Adventure", "Culture", "Food"],
+    "budgetRanges": ["Low", "Medium", "High"]
+  }
+}

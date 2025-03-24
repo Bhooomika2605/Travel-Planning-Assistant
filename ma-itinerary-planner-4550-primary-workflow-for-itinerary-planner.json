@@ -1,0 +1,86 @@
+{
+  "id": "ma-itinerary-planner-4550-primary-workflow",
+  "name": "Itinerary Planner Primary Workflow",
+  "description": "Main workflow for the Itinerary Planner mini-agent",
+  "trigger": {
+    "type": "userRequest",
+    "patterns": [
+      "Create an itinerary for {location}",
+      "Plan my trip to {location}",
+      "I need a travel plan for {location}"
+    ]
+  },
+  "parameters": [
+    {
+      "name": "location",
+      "type": "string",
+      "required": true,
+      "prompt": "Where would you like to travel to?"
+    },
+    {
+      "name": "duration",
+      "type": "number",
+      "required": true,
+      "prompt": "How many days will you be staying?"
+    },
+    {
+      "name": "interests",
+      "type": "array",
+      "required": false,
+      "prompt": "What are you interested in? (Historical, Nature, Adventure, Culture, Food)"
+    },
+    {
+      "name": "budget",
+      "type": "string",
+      "required": false,
+      "prompt": "What is your budget range? (Low, Medium, High)"
+    }
+  ],
+  "steps": [
+    {
+      "id": "validateInput",
+      "type": "validation",
+      "parameters": ["location", "duration"],
+      "validations": {
+        "duration": {
+          "min": 1,
+          "max": 14
+        }
+      }
+    },
+    {
+      "id": "getDestinationInfo",
+      "type": "apiCall",
+      "service": "destinationService",
+      "method": "getInfo",
+      "parameters": {
+        "location": "$location"
+      },
+      "output": "destinationInfo"
+    },
+    {
+      "id": "generateItinerary",
+      "type": "callWorkflow",
+      "workflow": "create-itinerary-7467",
+      "parameters": {
+        "location": "$location",
+        "duration": "$duration",
+        "interests": "$interests",
+        "budget": "$budget",
+        "destinationInfo": "$destinationInfo"
+      },
+      "output": "itineraryResult"
+    },
+    {
+      "id": "formatResponse",
+      "type": "transformation",
+      "input": "itineraryResult",
+      "template": "itineraryResponseTemplate",
+      "output": "formattedResponse"
+    }
+  ],
+  "output": {
+    "type": "response",
+    "content": "$formattedResponse"
+  }
+}
